@@ -97,7 +97,28 @@ ament_target_dependencies(key_command_test
   rclcpp
   std_msgs
 )
+# ============================================
+# INTEGRATION TEST EXECUTABLES
+# ============================================
 
+# Controller Integration Test
+add_executable(controller_integration_test debug/integrationtest.cpp)
+
+target_include_directories(controller_integration_test PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(controller_integration_test
+  key_listener
+  linear_controller
+)
+
+ament_target_dependencies(controller_integration_test
+  rclcpp
+  geometry_msgs
+  sensor_msgs
+  std_msgs
+)
 # ============================================
 # OTHER EXECUTABLES (from src)
 # ============================================
@@ -135,6 +156,7 @@ install(TARGETS
   stopper
   linear_controller_test
   key_command_test
+  controller_integration_test
   DESTINATION lib/${PROJECT_NAME}
 )
 
